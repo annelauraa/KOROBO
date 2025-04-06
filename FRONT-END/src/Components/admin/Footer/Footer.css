@@ -1,0 +1,8 @@
+.admin-footer {
+    min-height: 4vh;
+    background-color: #314F1C;
+    min-width: 93.3vw;
+    text-align: center; 
+    position: absolute;
+    bottom: 0;
+}

@@ -1,0 +1,21 @@
+.admin-sidebar {
+    box-shadow: 1px 0px 20px rgb(165, 165, 165);
+    min-height: 100vh;
+}
+
+.admin-title {
+    background-color: #314F1C;
+    width: 100%;
+}
+
+.sidebar-icon {
+    color : #727171;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.sidebar-icon:hover {
+    color : #314F1C;
+    scale: 1.2;
+    transition: 0.3s;
+}

@@ -1,0 +1,311 @@
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+@layer base {
+  :root {
+    --primary-color: #538543;
+    --secondary-color: #426835;
+    /* Gris */
+    --font-size: 16px;
+    --padding: 10px;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    margin: 0;
+    /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    padding: 0;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  input,
+  textarea {
+    border: none;
+    outline: none;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='search'] {
+    -webkit-appearance: none;
+  }
+
+  input[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-results-button,
+  input[type='search']::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+}
+
+@layer utilities {
+  .text-center {
+    text-align: center;
+  }
+
+  .text-left {
+    text-align: left;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .text-justify {
+    text-align: justify;
+  }
+
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+
+  .text-lowercase {
+    text-transform: lowercase;
+  }
+
+  .text-capitalize {
+    text-transform: capitalize;
+  }
+
+  .text-bold {
+    font-weight: bold;
+  }
+
+  .text-italic {
+    font-style: italic;
+  }
+
+  .text-underline {
+    text-decoration: underline;
+  }
+
+  .text-line-through {
+    text-decoration: line-through;
+  }
+
+  .text-no-underline {
+    text-decoration: none;
+  }
+
+  .text-white {
+    color: white;
+  }
+
+  .text-black {
+    color: black;
+  }
+
+  .text-gray {
+    color: gray;
+  }
+
+  .text-red {
+    color: red;
+  }
+
+  .text-green {
+    color: green;
+  }
+
+  .text-blue {
+    color: blue;
+  }
+
+  .text-yellow {
+    color: yellow;
+  }
+
+  .text-orange {
+    color: orange;
+  }
+
+  .text-purple {
+    color: purple;
+  }
+
+  .text-pink {
+    color: pink;
+  }
+
+  .text-primary {
+    color: var(--primary-color);
+  }
+
+  .text-secondary {
+    color: var(--secondary-color);
+  }
+
+  .text-tertiary {
+    color: var(--tertiary-color);
+  }
+
+  .text-quaternary {
+    color: var(--quaternary-color);
+  }
+
+  .text-quinary {
+    color: var(--quinary-color);
+  }
+
+  .text-senary {
+    color: var(--senary-color);
+  }
+
+  .text-septenary {
+    color: var(--septenary-color);
+  }
+
+  .text-octonary {
+    color: var(--octonary-color);
+  }
+
+  .text-nonary {
+    color: var(--nonary-color);
+  }
+
+  .text-denary {
+    color: var(--denary-color);
+  }
+
+  .bg-white {
+    background-color: white;
+  }
+
+  .bg-black {
+    background-color: black;
+  }
+
+  .bg-gray {
+    background-color: gray;
+  }
+}
+
+@layer components {
+  .App {
+    text-align: center;
+  }
+
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+
+  .App-link {
+    color: #61dafb;
+  }
+}
+
+.text-korobo {
+  color: var(--primary-color);
+}
+
+.bg-korobo {
+  background-color: var(--primary-color);
+}
+
+.button-korobo-outlined {
+  background-color: transparent;
+  border: 1px solid var(--secondary-color);
+  border-radius: 3px;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--secondary-color);
+}
+
+.button-korobo-outlined:hover {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 3px;
+  padding: 8px;
+  cursor: pointer;
+  color: white;
+}
+
+.button-korobo {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 3px;
+  padding: 8px;
+  cursor: pointer;
+  color: white;
+}
+
+.button-korobo:hover {
+  background-color: #35532b;
+  border: 1px solid #35532b;
+  border-radius: 3px;
+  padding: 8px;
+  cursor: pointer;
+  color: white;
+}

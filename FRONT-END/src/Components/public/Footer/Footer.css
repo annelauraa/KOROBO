@@ -1,0 +1,8 @@
+.footer {
+    min-width: 100vw;
+    text-align: center; 
+    position: relative;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 1);
+    
+}
