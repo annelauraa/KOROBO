@@ -2,6 +2,6 @@ ul li {
     font-weight: 600 !important;
 }
 ul li:hover{
- scale: 1.05;
+ scale: 1.02;
  transition: 0.1s;
 }

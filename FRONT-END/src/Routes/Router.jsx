@@ -19,7 +19,7 @@ import Dashboard from "../Pages/admin/Dashboard/Dashboard";
 import MaintPlanning from "../Pages/admin/Maintenance-Planning/MaintPlanning";
 import Calendar from "../Pages/admin/Calendar/Calendar";
 import DBAdmin from "../Pages/admin/Database-Administration/DBAdmin";
-import Settings from "../Pages/admin/Settings/settings";
+import Settings from "../Pages/admin/Settings/Settings";
 import Notification from "../Pages/admin/Notification/Notification";
 import Site from "../Pages/admin/Site/Site";
 
