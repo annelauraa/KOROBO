@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import "./Home.css"
 import Testimonial from '../../../Components/public/Testimonial/Testimonial';
 import heroimage from '../../../assets/images/image.png'
+import website_maquette from '../../../assets/images/maquette-website.webp'
 
 export default function LandingPage() {
   return (
@@ -30,9 +31,13 @@ export default function LandingPage() {
           </div>
         </div>
       </header>
-
+    
       {/* Présentation Section */}
-      <section id='fonctionnalites' className="container w-2/3 mx-auto py-20 px-10">
+      <section id='fonctionnalites' className="container w-4/5 mx-auto pb-20 px-10">
+      
+        <div className=''>
+          <img src={website_maquette} className="m-auto  pb-25" alt="" />
+        </div>
         <h2 className="text-3xl text-korobo font-bold text-center mb-12"> Fonctionnalités clés de l'application</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Card 1 */}
