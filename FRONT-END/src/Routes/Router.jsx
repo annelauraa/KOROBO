@@ -23,6 +23,9 @@ import Settings from "../Pages/admin/Settings/Settings";
 import Notification from "../Pages/admin/Notification/Notification";
 import Site from "../Pages/admin/Site/Site";
 
+import ProtectedRoute from "../Routes/ProtectedRoute";
+import AlreadyLoggedIn from "../Pages/Login/AlreadyLoggedIn";
+import Logout from '../Pages/Login/Logout';
 
 const AppRoutes = () => {
     return (
@@ -38,18 +41,20 @@ const AppRoutes = () => {
 
          {/* Admin layout */}
         <Route element={<AdminLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/maintenance-planning" element={<MaintPlanning />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/database-administration" element={<DBAdmin />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/notification" element={<Notification />} />
-            <Route path="/site" element={<Site />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/maintenance-planning" element={<ProtectedRoute><MaintPlanning /></ProtectedRoute>} />
+            <Route path="/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
+            <Route path="/database-administration" element={<ProtectedRoute><DBAdmin /></ProtectedRoute>} />
+            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+            <Route path="/notification" element={<ProtectedRoute><Notification /></ProtectedRoute>} />
+            <Route path="/site" element={<ProtectedRoute><Site /></ProtectedRoute>} />
         </Route>
         {/* Login and sign-Up layout */}        
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/already-logged-in" element={<AlreadyLoggedIn />} />
+        <Route path="/logout" element={<Logout />} />
     </Routes>
     );
 };

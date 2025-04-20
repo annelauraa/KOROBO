@@ -1,6 +1,6 @@
 import React from 'react';
 import './Sidebar.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { RiDashboard3Fill, RiLogoutCircleRFill  } from "react-icons/ri";
 import { PiSolarPanelFill } from "react-icons/pi";
@@ -10,6 +10,11 @@ import { FaCogs } from "react-icons/fa";
 import { IoNotifications } from "react-icons/io5";
 import { FaRegCalendarDays } from "react-icons/fa6";
 const Sidebar = () => {
+    const navigate     = useNavigate();
+    const handleLogout = () => {
+        navigate("/logout");
+    }
+
     return (
         <div className='admin-sidebar flex flex-col items-center justify-between'>
            <div className='admin-title p-4 text-white'>
@@ -29,7 +34,7 @@ const Sidebar = () => {
            
            <div className='logoutButton flex flex-col items-center mb-5'>
                 <hr className='mt-2 mb-5 w-20 text-gray-300' />
-                <button>
+                <button onClick={handleLogout} >
                 <RiLogoutCircleRFill className='sidebar-icon' title='Déconnexion'/>
                 </button>
            </div>

@@ -1,19 +1,19 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+const Sequelize      = require('sequelize');
+      module.exports = function(sequelize, DataTypes) {
   return sequelize.define('SequelizeMeta', {
     name: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
+      type      : DataTypes.STRING(255),
+      allowNull : false,
       primaryKey: true
     }
   }, {
     sequelize,
-    tableName: 'SequelizeMeta',
-    schema: 'public',
+    tableName : 'SequelizeMeta',
+    schema    : 'public',
     timestamps: false,
-    indexes: [
+    indexes   : [
       {
-        name: "SequelizeMeta_pkey",
+        name  : "SequelizeMeta_pkey",
         unique: true,
         fields: [
           { name: "name" },

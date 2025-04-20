@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { IoIosEye, IoIosEyeOff, IoIosArrowBack  } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import './Login.css';
+import { isAuthenticated, setToken } from '../../utils/auth';
 
 const Login = () => {
 
     const [formData, setFormData] = useState({
         email: "",
         password: "",
-      });
+    });
+
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +25,7 @@ const Login = () => {
         // passwordDigit: false,
         // passwordLetter: false,
         // passwordSpecial: false,
-      });
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,32 +39,34 @@ const Login = () => {
         setErrors(newErrors);
     
         // Si aucune erreur, soumettre le formulaire
+
         if (!Object.values(newErrors).includes(true)) {
   
-          const response = await fetch('http://localhost:8000/auth/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+          try {
+          
+            const res = await axios.post("http://localhost:5000/api/auth/login", {
               email: formData.email,
-              password: formData.password,
-              expiresInMins: 30, // optional, defaults to 60
-            }),
-          });
-  
-          if (response.ok) {
-            const data = await response.json();
-            localStorage.setItem('token', data.token);  // Store JWT token
-            localStorage.setItem('user', JSON.stringify(data.user));  // Store user data
-            navigate('/dashboard');  // Redirect to dashboard
-          } else {
-            setError('Invalid credentials');
+              mot_de_passe: formData.password,
+            }, {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+      
+            setToken(res.data.token);
+            navigate("/dashboard");
+
+          } catch (error) {
+              console.error(error);
+              setError("Email ou mot de passe incorrect");
+          }finally {
+            // setLoading(false);
           }
   
           // Logic de soumission du formulaire ici (création de compte)
         }
-      };
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
     
@@ -76,11 +81,19 @@ const Login = () => {
           ...prevData,
           [name]: value,
         }));
-      };
+    };
+
     // Fonction pour basculer la visibilité du mot de passe
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
-      };
+    };
+
+    useEffect(() => {
+      if (isAuthenticated()) {
+        // Redirection automatique vers une page d'alerte si déjà connecté
+        navigate("/already-logged-in");
+      }
+    }, [navigate]);
       
 
     return (

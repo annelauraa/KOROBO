@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router();
+const express              = require("express");
+const router               = express.Router();
 const contratSAVController = require("../controllers/ContratSAVController");
-const authMiddleware = require("../Middlewares/authMiddleware");
-const roleMiddleware = require("../Middlewares/roleMiddleware");
+const authMiddleware       = require("../Middlewares/authMiddleware");
+const roleMiddleware       = require("../Middlewares/roleMiddleware");
 
-// Définir les routes
+  // Définir les routes
 router.get("/", authMiddleware, roleMiddleware(["admin"]), contratSAVController.getAllContratSAVs);
 router.get("/:id", authMiddleware, roleMiddleware(["admin"]), contratSAVController.getContratSAVById);
 router.post("/", authMiddleware, roleMiddleware(["admin"]), contratSAVController.createContratSAV);

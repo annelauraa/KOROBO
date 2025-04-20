@@ -1,8 +1,8 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const db = require("../models");
-const Utilisateur = db.Utilisateurs;
-const Entreprises = db.Entreprises;
+const bcrypt         = require("bcryptjs");
+const jwt            = require("jsonwebtoken");
+const db             = require("../models");
+const Utilisateur    = db.Utilisateurs;
+const Entreprises    = db.Entreprises;
 const authController = {
     register: async (req, res) => {
         try {
@@ -33,7 +33,7 @@ const authController = {
     login: async (req, res) => {
         try {
             const { email, mot_de_passe } = req.body;
-            const user = await Utilisateur.findOne({ where: { email } });
+            const user                    = await Utilisateur.findOne({ where: { email } });
 
             if (!user) {
                 return res.status(400).json({ error: "Utilisateur non trouvé" });

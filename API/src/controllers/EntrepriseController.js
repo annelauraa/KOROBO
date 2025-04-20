@@ -1,8 +1,12 @@
-const { Op } = require("sequelize");
-const db = require("../models"); // Importer les modèles Sequelize
-const Entreprise = db.Entreprises; // Récupérer le modèle des entreprise
+const { Op }     = require("sequelize");
+const db         = require("../models");  // Importer les modèles Sequelize
+const Entreprise = db.Entreprises;        // Récupérer le modèle des entreprise
 
-// Fonction utilitaire pour gérer les erreurs
+const bcrypt          = require('bcrypt');
+const saltRounds      = 10;
+let   hashed_password = '';
+
+  // Fonction utilitaire pour gérer les erreurs
 const handleError = (res, error) => {
     res.status(500).json({ message: "Erreur serveur", error: error.message });
 };
@@ -10,29 +14,53 @@ const handleError = (res, error) => {
 const entrepriseController = {
     getAllEntreprises: async (req, res) => {
         try {
-            const entreprises = await Entreprise.findAll(); // Récupérer tous les entreprises
-            res.status(200).json(entreprises); // Retourner les résultats en JSON
+            const      entreprises = await Entreprise.findAll();  // Récupérer tous les entreprises
+            res.status(200).json(entreprises);                    // Retourner les résultats en JSON
         } catch (error) {
             handleError(res, error);
         }
     },
 
-    // Créer un nouvel entreprise
+      // Créer un nouvel entreprise
     createEntreprise: async (req, res) => {
         try {
-            const { nom, email, telephone, adresse, logo } = req.body; // Extraire les données du corps de la requête
-            const nouvelEntreprise = await Entreprise.create({ nom, email, telephone, adresse, logo }); // Créer un entreprise
-            res.status(201).json(nouvelEntreprise); // Retourner l'entreprise créé
+            const { nom, email, mot_de_passe, telephone, adresse, logo } = req.body;                  // Extraire les données du corps de la requête
+            const nouvelEntreprise                                       = await Entreprise.create({
+                nom,
+                telephone,
+                adresse,
+                logo
+            }); // Créer un entreprise
+
+            const hashedPassword = await bcrypt.hash(mot_de_passe, saltRounds);
+
+            const nouvelUtilisateur = await db.Utilisateurs.create({
+                nom          : nom+' Admin',
+                email        : email,
+                mot_de_passe : hashedPassword,
+                role         : 'admin',
+                id_entreprise: nouvelEntreprise.id
+            });
+
+              /** Pour empecher de retourner le mot de passe */
+            const userToReturn = { ...nouvelUtilisateur.dataValues };
+            delete userToReturn.mot_de_passe;
+
+            res.status(201).json({
+                entreprise : nouvelEntreprise,
+                utilisateur: nouvelUtilisateur
+            });
+
         } catch (error) {
             handleError(res, error);
         }
     },
 
-    // Obtenir un entreprise par ID
+      // Obtenir un entreprise par ID
     getEntrepriseById: async (req, res) => {
 
         try {
-            const { id } = req.params;
+            const { id }     = req.params;
             const entreprise = await Entreprise.findByPk(id);
             if (!entreprise) {
                 return res.status(404).json({ message: "Entreprise non trouvé" });
@@ -43,11 +71,11 @@ const entrepriseController = {
         }
     },
 
-    // Rechercher une entreprise
+      // Rechercher une entreprise
     getEntrepriseByIndex: async (req, res) => {
 
         try {
-            const { index } = req.params;
+            const { index }  = req.params;
             const searchTerm = `%${index}%`;
 
             const entreprise = await Entreprise.findAll({
@@ -69,11 +97,11 @@ const entrepriseController = {
         }
     },
 
-    // Mettre à jour un entreprise
+      // Mettre à jour un entreprise
     updateEntreprise: async (req, res) => {
         try {
             const { nom, email, telephone, adresse, logo } = req.body;
-            const entreprise = await Entreprise.findByPk(req.params.id);
+            const entreprise                               = await Entreprise.findByPk(req.params.id);
             if (!entreprise) {
                 return res.status(404).json({ message: "Entreprise non trouvé" });
             }
@@ -84,7 +112,7 @@ const entrepriseController = {
         }
     },
 
-    // Supprimer un entreprise
+      // Supprimer un entreprise
     deleteEntreprise: async (req, res) => {
         try {
             const entreprise = await Entreprise.findByPk(req.params.id);
