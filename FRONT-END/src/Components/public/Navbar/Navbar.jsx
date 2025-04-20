@@ -58,10 +58,10 @@ const Navbar = () => {
                 <li > <Link to="faq" smooth={true} duration={800} offset={-100} className='cursor-pointer lg:mr-25'> FAQ </Link></li>
                 <li><LK
                   to="/sign-up"
-                  className="button-korobo"
+                  className="button-korobo-outlined"
                   whileHover={{ scale: 1.01 }}
                 >
-                  Nouveau compte
+                  Inscription
                 </LK></li>
                 <li><LK
                   to="/login"

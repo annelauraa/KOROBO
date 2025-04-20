@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useState} from 'react';
 import './Sidebar.css';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -10,9 +10,10 @@ import { FaCogs } from "react-icons/fa";
 import { IoNotifications } from "react-icons/io5";
 import { FaRegCalendarDays } from "react-icons/fa6";
 const Sidebar = () => {
+    const [showModal, setShowModal] = useState(false);
     const navigate     = useNavigate();
     const handleLogout = () => {
-        navigate("/logout");
+        setShowModal(true);
     }
 
     return (
@@ -38,6 +39,31 @@ const Sidebar = () => {
                 <RiLogoutCircleRFill className='sidebar-icon' title='Déconnexion'/>
                 </button>
            </div>
+           {showModal && (
+        <div className=" inset-0 backdrop flex items-center justify-center ">
+          <div className="bg-white rounded-xl p-6 w-1/4 shadow-lg">
+            <h2 className="text-lg font-semibold mb-4">Confirmation</h2>
+            <p className="mb-6">Tu es sûre de vouloir te déconnecter ?</p>
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={() => setShowModal(false)}
+                className="bg-gray-300 px-4 py-2"
+              >
+                Non
+              </button>
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                  navigate("/logout"); 
+                }}
+                className="button-korobo px-4 py-2 rounded"
+              >
+                Oui
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
         </div>
     );
 };

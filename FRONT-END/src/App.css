@@ -40,6 +40,8 @@ body {
 
   button {
     cursor: pointer;
+    min-width: 25%;
+    border-radius: 50px !important;
   }
 
   img {

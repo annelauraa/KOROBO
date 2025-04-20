@@ -22,7 +22,13 @@ const Sequelize      = require('sequelize');
     logo: {
       type     : DataTypes.STRING,
       allowNull: true
-    }
+    },
+    isVerified: {
+      type     : DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
+
+    },
   }, {
     sequelize,
     tableName : 'Entreprises',
