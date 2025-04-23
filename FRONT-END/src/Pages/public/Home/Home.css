@@ -1,9 +1,4 @@
-.home-main-content {
-    background-image: url('../../../assets/images/Fond-Korobo.png');
-    background-size: cover;
-    /* padding: 5%; */
-}
-
-hero {
-    background-image: url('../../../assets/images/Blur\ green.png');
+.button { 
+    min-width: 25%;
+    border-radius: 50px !important;
 }

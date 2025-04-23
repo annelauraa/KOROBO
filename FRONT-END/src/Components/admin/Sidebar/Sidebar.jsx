@@ -18,7 +18,7 @@ const Sidebar = () => {
 
     return (
         <div className='admin-sidebar flex flex-col items-center justify-between'>
-           <div className='admin-title p-4 text-white'>
+           <div className='admin-title p-4 text-white shadow-lg'>
             <h1> <b>#Admin</b></h1>
            </div>
            <nav>
@@ -41,13 +41,13 @@ const Sidebar = () => {
            </div>
            {showModal && (
         <div className=" inset-0 backdrop flex items-center justify-center ">
-          <div className="bg-white rounded-xl p-6 w-1/4 shadow-lg">
+          <div className="bg-white rounded-xl p-6 w-1/3 shadow-lg">
             <h2 className="text-lg font-semibold mb-4">Confirmation</h2>
-            <p className="mb-6">Tu es sûre de vouloir te déconnecter ?</p>
+            <p className="mb-6">Êtes vous sûr de vouloir vous déconnecter ?</p>
             <div className="flex justify-end gap-4">
               <button
                 onClick={() => setShowModal(false)}
-                className="bg-gray-300 px-4 py-2"
+                className="bg-gray-300 px-4 py-1.5 rounded"
               >
                 Non
               </button>
@@ -56,7 +56,7 @@ const Sidebar = () => {
                   setShowModal(false);
                   navigate("/logout"); 
                 }}
-                className="button-korobo px-4 py-2 rounded"
+                className="bg-green-900 px-4 py-1.5 text-white rounded"
               >
                 Oui
               </button>

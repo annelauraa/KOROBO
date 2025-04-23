@@ -1,12 +1,8 @@
-body {
-  min-height: 100vh;
-  min-width: 100vw;
-}
 
 @layer base {
   :root {
-    --primary-color: #538543;
-    --secondary-color: #426835;
+    --primary-color: #355E3B;
+    --secondary-color: #2a5730;
     /* Gris */
     --font-size: 16px;
     --padding: 10px;
@@ -27,9 +23,12 @@ body {
     /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    min-width: 100vw;
   }
 
   code {
+
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
 
@@ -40,8 +39,6 @@ body {
 
   button {
     cursor: pointer;
-    min-width: 25%;
-    border-radius: 50px !important;
   }
 
   img {
@@ -279,7 +276,7 @@ body {
 .button-korobo-outlined {
   background-color: transparent;
   border: 1px solid var(--secondary-color);
-  border-radius: 50px;
+  /* border-radius: 50px; */
   padding: 10px 18px 10px 18px;
   cursor: pointer;
   color: var(--secondary-color);
@@ -288,7 +285,7 @@ body {
 .button-korobo-outlined:hover {
   background-color: var(--secondary-color);
   border: 1px solid var(--secondary-color);
-  border-radius: 50px;
+  /* border-radius: 50px; */
   padding: 10px 18px 10px 18px;
   cursor: pointer;
   color: white;
@@ -297,7 +294,7 @@ body {
 .button-korobo {
   background-color: var(--secondary-color);
   border: 1px solid var(--secondary-color);
-  border-radius: 50px;
+  /* border-radius: 50px; */
   padding: 10px 18px 10px 18px;
   cursor: pointer;
   color: white;
@@ -306,7 +303,7 @@ body {
 .button-korobo:hover {
   background-color: #35532b;
   border: 1px solid #35532b;
-  border-radius: 50px;
+  /* border-radius: 50px; */
   padding: 10px 18px 10px 18px;
   cursor: pointer;
   color: white;

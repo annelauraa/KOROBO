@@ -27,15 +27,15 @@ function AlreadyLoggedIn() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
-        <h2 className="text-2xl font-bold text-green-700 mb-4">Vous êtes déjà connecté !</h2>
+        <h2 className="text-2xl font-bold text-korobo mb-4">Vous êtes déjà connecté !</h2>
         <p className="text-gray-700 mb-6">Redirection vers votre espace admin dans {counter}s...</p>
-        <Link to="/dashboard" className="text-white bg-green-600 px-4 py-2 rounded hover:bg-green-700">
+        <Link to="/dashboard" className="text-white rounded-3xl bg-korobo px-4 py-3  hover:bg-green-700">
           Aller au tableau de bord
         </Link>
-        <div className="my-4 flex justify-center items-center flex-row gap-1">
-          <hr className="w-25 mt-1" />ou<hr className="w-25 mt-1" />
+        <div className="my-4 flex justify-center items-center flex-row gap-1 text-gray-300">
+          <hr className="w-25 mt-1 " /><span className="text-gray-700 text-sm px-2 ">ou</span><hr className="w-25 mt-1" />
         </div>
-        <Link to="/logout" className="text-red-600 hover:underline mt-2">
+        <Link to="/logout" className="text-gray-700 hover:underline mt-2">
           Se déconnecter
         </Link>
       </div>

@@ -93,13 +93,13 @@ function ForgotPassword() {
             type="submit"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.9 }}
-            className=" w-full button-korobo transition-all duration-300"
+            className="rounded-3xl w-full button-korobo transition-all duration-300"
           >
             Envoyer le code de réinitialisation
           </motion.button>
           <span className="block text-sm font-medium text-gray-900 text-start"><Link className="text-korobo" to="/login">Se connecter </Link></span>
         </form>
-            <button className='text-sm bg-gray-200 mt-5 p-1.5 rounded-sm text-gray-500 flex flex-row hover:scale-105 float-end'> <Link to="/" className='flex flex-row items-center'>Annuler</Link></button>
+        <Link to="/" className='flex flex-row items-center'> <button className='text-sm  bg-gray-200 mt-5 py-1.5 px-3 text-gray-500 flex flex-row hover:scale-105 float-end'> Annuler</button></Link>
       </motion.div>
       
     </div>

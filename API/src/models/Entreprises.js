@@ -28,7 +28,7 @@ const Sequelize      = require('sequelize');
       allowNull: true,
       defaultValue: false
 
-    },
+    }
   }, {
     sequelize,
     tableName : 'Entreprises',

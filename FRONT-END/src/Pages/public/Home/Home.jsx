@@ -19,7 +19,7 @@ export default function LandingPage() {
             Korobo vous offre une solution intuitive pour planifier, suivre et gérer toutes vos interventions de maintenance.
           </p>
           <Link to="/sign-up">
-            <button className="mt-8 px-6 py-3 rounded-2xl button-korobo transition ">
+            <button className="button mt-8 px-6 py-3 rounded-2xl button-korobo transition ">
               Commencer maintenant
             </button>
           </Link>

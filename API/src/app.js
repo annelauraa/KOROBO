@@ -7,7 +7,15 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const options = {
+    origin: ["http://localhost:5173", "http://192.168.16.100:5173"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(options));
+
 app.use(helmet());
 app.use(express.json());  // Pour lire les JSON envoyés
 

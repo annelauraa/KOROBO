@@ -12,7 +12,7 @@ import Contact from '../Pages/public/Contact/Contact';
 import Login from '../Pages/Login/Login';
 import SignUp from '../Pages/Sign-Up/SignUp';
 import ForgotPassword from '../Pages/Login/ForgotPassword';
-
+import VerifyAccount from '../Pages/Sign-Up/VerifyAccount';
 
 // Pages Admin
 import Dashboard from "../Pages/admin/Dashboard/Dashboard";
@@ -54,6 +54,7 @@ const AppRoutes = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/already-logged-in" element={<AlreadyLoggedIn />} />
+        <Route path="/verify-account" element={<VerifyAccount />} />
         <Route path="/logout" element={<Logout />} />
     </Routes>
     );

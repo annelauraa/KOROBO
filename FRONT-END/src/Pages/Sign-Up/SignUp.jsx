@@ -3,14 +3,16 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { IoIosEye } from "react-icons/io";
 import { IoIosEyeOff } from "react-icons/io";
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import './SignUp.css'
 import { GoXCircleFill } from 'react-icons/go';
-import { VscError } from 'react-icons/vsc';
-import axios from 'axios';
-
-
+import { signup } from '../../services/authService';
+import ErrorMessage from '../../Components/errors/ErrorMessage';
 const SignUp = () => {
+
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorShakeTrigger, setErrorShakeTrigger] = useState(0);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     companyName: "",
@@ -35,7 +37,7 @@ const SignUp = () => {
 
   const [showPassword, setShowPassword] = useState(false); // État pour gérer la visibilité du mot de passe
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validation des champs requis
@@ -51,33 +53,35 @@ const SignUp = () => {
 
     // Si aucune erreur, soumettre le formulaire
     if (!Object.values(newErrors).includes(true)) {
+      setIsLoading(true);
+
       try {
+          await signup({
+            nom: formData.companyName,
+            email: formData.email,
+            mot_de_passe: formData.password,
+            telephone: formData.telephone,
+            adresse: (formData.adresse).length ? formData.adresse : "Non renseigné",
+            logo: "Non renseigné",
+          });
 
-        const res = await axios.post("http://localhost:5000/api/entreprises", {
-          nom         : formData.companyName,
-          email       : formData.email,
-          mot_de_passe: formData.password,
-          telephone   : formData.telephone,
-          adresse     : (formData.adresse).length ? formData.adresse: "Non renseigné",
-          logo        : "Non renseigné",
-        }, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        console.log(res.data);  // Afficher la réponse du serveur dans la console
-        // Rediriger vers la page de connexion ou une autre page après l'inscription réussie
-        // navigate("/login");
-        setError(null); // Réinitialiser l'erreur si l'inscription réussit
+          navigate("/verify-account");
+          setError(null);
 
       } catch (error) {
-        console.error(error);
+
+          console.error(error);
+          if (error.response && error.response.data && error.response.data.message) {
+            setError(error.response.data.message); // 👈 affiche le message d'erreur du backend
+            setErrorShakeTrigger(prev => prev + 1); // 🔁 relance l'animation
+          } else {
+            setError("Une erreur est survenue lors de la création de l’entreprise.");
+          }
+
       } finally {
-        // setLoading(false);
-      }
+          setIsLoading(false);
+      }  
       console.log("Formulaire soumis avec succès");
-      // Logic de soumission du formulaire ici (création de compte)
     }
   };
 
@@ -119,8 +123,10 @@ const SignUp = () => {
         </div>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           {/* Message d'erreur */}
-          {error && <p className='text-sm text-red-500 flex items-center gap-1'><VscError />{error}</p>}
-          
+          {error && (
+            <ErrorMessage message={error} errorShakeTrigger={errorShakeTrigger} />
+          )}
+
           {/* Nom de l'entreprise */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -139,14 +145,14 @@ const SignUp = () => {
               type="text"
               value={formData.companyName}
               onChange={handleChange}
-              className={`mt-1 block w-full px-3 py-2 border rounded-md sm:text-sm ${errors.companyName ? "border-red-500" : "border-gray-300"
+              className={`mt-1 block w-full px-3 py-2 border rounded-md sm:text-sm ${error || errors.companyName ? "border-red-500" : "border-gray-300"
                 } focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
             {errors.companyName && (
               <span className="text-red-500 text-sm">Ce champ est requis</span>
             )}
           </motion.div>
-          
+
           {/* Adresse de l'entreprise */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -157,7 +163,7 @@ const SignUp = () => {
               htmlFor="company-address"
               className="block text-sm font-medium text-gray-700"
             >
-              Adresse de l’entreprise 
+              Adresse de l’entreprise
             </label>
             <input
               id="company-adress"
@@ -169,7 +175,7 @@ const SignUp = () => {
                 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
             />
           </motion.div>
-          
+
           {/* Telephone*/}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
@@ -275,13 +281,19 @@ const SignUp = () => {
             type="submit"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.9 }}
-            className="w-full button-korobo transition-all duration-300"
+            disabled={isLoading}
+            className={`rounded-3xl w-full justify-center items-center transition-all duration-300 ${isLoading ? 'bg-gray-400 cursor-not-allowed flex p-3 border-none text-white' : 'button-korobo'
+              }`}
           >
-            Créer un compte
+            {isLoading && (
+              <svg class="mr-3 -ml-1 size-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            )}
+            {isLoading ? "Chargement..." : "Créer un compte"}
+
           </motion.button>
           <span className="block text-sm font-medium text-gray-900">Si vous avez déjà un compte alors, <Link className="text-korobo" to="/login">Cliquez ici</Link></span>
         </form>
-        
+
       </motion.div>
     </div>
   );

@@ -22,39 +22,54 @@ const entrepriseController = {
     },
 
       // Créer un nouvel entreprise
-    createEntreprise: async (req, res) => {
+      createEntreprise: async (req, res) => {
         try {
-            const { nom, email, mot_de_passe, telephone, adresse, logo } = req.body;                  // Extraire les données du corps de la requête
-            const nouvelEntreprise                                       = await Entreprise.create({
+            const { nom, email, mot_de_passe, telephone, adresse, logo } = req.body;
+    
+            // Vérifier si l'email existe déjà dans la table Utilisateurs
+            const utilisateurExistant = await db.Utilisateurs.findOne({
+                where: { email }
+            });
+    
+            if (utilisateurExistant) {
+                return res.status(400).json({
+                    message: "Cet email est déjà utilisé par un autre utilisateur. Veuillez en choisir un autre."
+                });
+            }
+    
+            // Créer l'entreprise
+            const nouvelEntreprise = await Entreprise.create({
                 nom,
                 telephone,
                 adresse,
                 logo
-            }); // Créer un entreprise
-
+            });
+    
+            // Hasher le mot de passe
             const hashedPassword = await bcrypt.hash(mot_de_passe, saltRounds);
-
+    
+            // Créer l'utilisateur admin lié à l'entreprise
             const nouvelUtilisateur = await db.Utilisateurs.create({
-                nom          : nom+' Admin',
-                email        : email,
-                mot_de_passe : hashedPassword,
-                role         : 'admin',
+                nom: nom + ' Admin',
+                email,
+                mot_de_passe: hashedPassword,
+                role: 'admin',
                 id_entreprise: nouvelEntreprise.id
             });
-
-              /** Pour empecher de retourner le mot de passe */
+    
+            // Ne pas retourner le mot de passe dans la réponse
             const userToReturn = { ...nouvelUtilisateur.dataValues };
             delete userToReturn.mot_de_passe;
-
+    
             res.status(201).json({
-                entreprise : nouvelEntreprise,
-                utilisateur: nouvelUtilisateur
+                entreprise: nouvelEntreprise,
+                utilisateur: userToReturn
             });
-
+    
         } catch (error) {
             handleError(res, error);
         }
-    },
+    },   
 
       // Obtenir un entreprise par ID
     getEntrepriseById: async (req, res) => {

@@ -10,11 +10,38 @@ const siteController = {
     getAllSites: async (req, res) => {
         try {
             const { id_entreprise } = req.params;
+
+            const entreprises = await db.Entreprises.findByPk(id_entreprise); // Récupérer l'entreprise par ID
+            if (!entreprises) {
+                return res.status(404).json({ message: "Entreprise non trouvée" }); // Vérifier si l'entreprise existe
+            }
+
             const sites             = await Site.findAll({
-                where: {
-                    id_entreprise: id_entreprise
-                }
+                where: {id_entreprise: id_entreprise},
+                include: [
+                    {
+                        model: db.Entreprises,
+                        as: 'entreprise',
+                    },
+                    {
+                        model: db.ContratSAV,
+                        as: 'type_contrat_ContratSAV',
+                    },
+                    {
+                        model: db.Utilisateurs,
+                        as: 'installateur_Utilisateur',
+                    },
+                    {
+                        model: db.InstallationElectrique,
+                        as: 'type_electrique_InstallationElectrique',
+                    },
+                    {
+                        model: db.Interventions,
+                        as: 'Interventions',
+                    }
+                ]
             }); // Récupérer tous les sites
+
             res.status(200).json(sites);  // Retourner les résultats en JSON
         } catch (error) {
             handleError(res, error);

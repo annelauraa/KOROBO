@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
   if (!isAuthenticatedUser) {
     return <Navigate to="/login" />;
   }
-  // If the user is authenticated but not an admin, redirect to the dashboard
+  
   if (isAuthenticatedUser && !isAdmin && !isSuperAdmin) {
     return <Navigate to="/home" />;
   }

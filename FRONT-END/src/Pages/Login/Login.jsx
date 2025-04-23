@@ -3,14 +3,16 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { IoIosEye, IoIosEyeOff, IoIosArrowBack } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
 import './Login.css';
-import { isAuthenticated, setToken } from '../../utils/auth';
+import { isAuthenticated } from '../../utils/auth';
 import { GoXCircleFill } from "react-icons/go";
 import { VscError } from "react-icons/vsc";
+import { login } from '../../services/authService';
+import ErrorMessage from '../../Components/errors/ErrorMessage';
 
 const Login = () => {
 
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,6 +30,7 @@ const Login = () => {
     // passwordLetter: false,
     // passwordSpecial: false,
   });
+  const [errorShakeTrigger, setErrorShakeTrigger] = useState(0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,26 +46,20 @@ const Login = () => {
     // Si aucune erreur, soumettre le formulaire
 
     if (!Object.values(newErrors).includes(true)) {
-
+      setIsLoading(true);
       try {
-
-        const res = await axios.post("http://localhost:5000/api/auth/login", {
+        await login({
           email: formData.email,
           mot_de_passe: formData.password,
-        }, {
-          headers: {
-            "Content-Type": "application/json",
-          },
         });
 
-        setToken(res.data.token);
-        navigate("/dashboard");
+        window.location.href = "/dashboard";
 
-      } catch (error) {
-        console.error(error);
-        setError("Email ou mot de passe incorrect");
+      } catch (errMsg) {
+        setError(errMsg);
+        setErrorShakeTrigger(prev => prev + 1);
       } finally {
-        // setLoading(false);
+        setIsLoading(false);
       }
 
       // Logic de soumission du formulaire ici (création de compte)
@@ -115,7 +112,9 @@ const Login = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-          {error && <p className='text-sm text-red-500 flex items-center gap-1'><VscError />{error}</p>}
+          {error && (
+            <ErrorMessage message={error} errorShakeTrigger={errorShakeTrigger} />
+          )}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -194,9 +193,15 @@ const Login = () => {
             type="submit"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.9 }}
-            className=" w-full button-korobo transition-all duration-300"
+            disabled={isLoading}
+            className={`rounded-3xl w-full justify-center items-center transition-all duration-300 ${isLoading ? 'bg-gray-400 cursor-not-allowed flex p-3 border-none text-white' : 'button-korobo'
+              }`}
           >
-            Se connecter
+            {isLoading && (
+            <svg class="mr-3 -ml-1 size-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+             )}
+            {isLoading ? "Chargement..." : "Se connecter"}
+
           </motion.button>
           <span className="block text-sm font-medium text-gray-900 text-start"><Link className="text-korobo" to="/forgot-password">Mot de passe oublié ?</Link></span>
           <span className="block text-sm font-medium text-gray-900 text-start"><Link className="text-korobo" to="/sign-up">Cliquez ici</Link> si vous n&apos;avez pas encore votre compte. </span>
