@@ -19,10 +19,10 @@ function initModels(sequelize) {
   var MaterielSites          = _MaterielSites(sequelize, DataTypes);
   var Materiels              = _Materiels(sequelize, DataTypes);
   var Notifications          = _Notifications(sequelize, DataTypes);
-  var SequelizeMeta          = _SequelizeMeta(sequelize, DataTypes);
   var Sites                  = _Sites(sequelize, DataTypes);
   var TypeInstallation       = _TypeInstallation(sequelize, DataTypes);
   var Utilisateurs           = _Utilisateurs(sequelize, DataTypes);
+  var SequelizeMeta          = _SequelizeMeta(sequelize, DataTypes);
 
   Sites.belongsTo(ContratSAV, { as: "type_contrat_ContratSAV", foreignKey: "type_contrat" });
   ContratSAV.hasMany(Sites, { as: "Sites", foreignKey: "type_contrat" });
@@ -59,12 +59,12 @@ function initModels(sequelize) {
     ContratSAV,
     Entreprises,
     InstallationElectrique,
-    Interventions,
     MaterielSites,
     Materiels,
     Notifications,
     SequelizeMeta,
     Sites,
+    Interventions,
     TypeInstallation,
     Utilisateurs,
   };
