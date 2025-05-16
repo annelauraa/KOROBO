@@ -1,0 +1,64 @@
+### 🔒 Protection des données sensibles ###
+# Fichiers d'environnement
+.env
+.env.*
+!.env.example
+.env.local
+.env.development
+.env.production
+.env.test
+API/.env*
+FRONT-END/.env*
+
+### 📁 Dossiers de dépendances ###
+node_modules/
+API/node_modules/
+FRONT-END/node_modules/
+
+### 📦 Builds/Compilations ###
+dist/
+dist-ssr/
+FRONT-END/dist/
+FRONT-END/dist-ssr/
+
+### 📝 Logs ###
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+### 💻 Configurations d'éditeurs ###
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+FRONT-END/.vscode/*
+!FRONT-END/.vscode/extensions.json
+
+# IDE
+.idea/
+FRONT-END/.idea/
+
+# Système
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+FRONT-END/.DS_Store
+FRONT-END/*.suo
+FRONT-END/*.ntvs*
+FRONT-END/*.njsproj
+FRONT-END/*.sln
+FRONT-END/*.sw?
+
+### 🔥 Fichiers temporaires ###
+*.local
+FRONT-END/*.local
+
+### 🛑 Exceptions ###
+# Autoriser le fichier d'exemple d'environnement
+!.env.exampledump.sql
