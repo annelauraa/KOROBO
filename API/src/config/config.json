@@ -1,24 +1,35 @@
 {
-    "development": {
-      "username": "postgres",
-      "password": "root",
-      "database": "suivi_maintenance_db",
-      "host"    : "127.0.0.1",
-      "dialect" : "postgres"
+  "development": {
+    "username": "postgres",
+    "password": "npg_WqZSC9ltwn0P",
+    "database": "suivi_maintenance_db",
+    "host": "ep-silent-recipe-a4f6zz2x-pooler.us-east-1.aws.neon.tech",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
     },
-    "test": {
-      "username": "postgres",
-      "password": "root",
-      "database": "suivi_maintenance_db",
-      "host"    : "127.0.0.1",
-      "dialect" : "postgres"
-    },
-    "production": {
-      "username": "postgres",
-      "password": "root",
-      "database": "suivi_maintenance_db",
-      "host"    : "127.0.0.1",
-      "dialect" : "postgres"
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
     }
+  },
+  "test": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "suivi_maintenance_db",
+    "host"    : "127.0.0.1",
+    "dialect" : "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "suivi_maintenance_db",
+    "host"    : "127.0.0.1",
+    "dialect" : "postgres"
   }
-  
+}
