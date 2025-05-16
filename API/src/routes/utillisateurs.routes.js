@@ -6,6 +6,7 @@ const roleMiddleware = require("../Middlewares/roleMiddleware");
 
 // Définir les routes
 router.get("/getall/:id_entreprise", authMiddleware, roleMiddleware(["admin"]), utilisateurController.getAllUtilisateurs);
+router.get("/getalltechniciens/:id_entreprise", authMiddleware, roleMiddleware(["admin"]), utilisateurController.getAllTechnicians);
 router.get("/search/:index/:id_connected/:id_entreprise", authMiddleware, roleMiddleware(["admin"]), utilisateurController.getAllUtilisateurByIndex);
 router.post("/", authMiddleware, roleMiddleware(["admin"]), utilisateurController.createUtilisateur);
 router.get("/:id", authMiddleware, roleMiddleware(["admin"]), utilisateurController.getUtilisateurById);

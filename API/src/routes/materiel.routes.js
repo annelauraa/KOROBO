@@ -5,6 +5,7 @@ const authMiddleware     = require("../Middlewares/authMiddleware");
 const roleMiddleware     = require("../Middlewares/roleMiddleware");
   // Définir les routes
 router.get("/all/:id_entreprise", authMiddleware, roleMiddleware(["admin"]), materielController.getAllMateriels);
+router.get("/byType/:id_entreprise/:material_type", authMiddleware, roleMiddleware(["admin"]), materielController.getMateriels);
 router.post("/", authMiddleware, roleMiddleware(["admin"]), materielController.createMateriel);
 router.get("/:id", authMiddleware, roleMiddleware(["admin"]), materielController.getMaterielById);
 router.put("/:id", authMiddleware, roleMiddleware(["admin"]), materielController.updateMateriel);

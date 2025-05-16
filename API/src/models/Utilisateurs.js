@@ -15,6 +15,16 @@ const Sequelize      = require('sequelize');
       type     : DataTypes.STRING(255),
       allowNull: true
     },
+    poste: {
+      type     : DataTypes.STRING(255),
+      allowNull: true
+    },
+    affectation: {
+      type     : DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0,
+    },
+    
     mot_de_passe: {
       type     : DataTypes.STRING(255),
       allowNull: true

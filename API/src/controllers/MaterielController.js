@@ -20,6 +20,29 @@ const materielController = {
             handleError(res, error);
         }
     },
+    
+    getMateriels: async (req, res) => {
+        try {
+            const id_entreprise = parseInt(req.params.id_entreprise);
+            const material_type = req.params.material_type;
+    
+            console.log('Params:', id_entreprise, material_type);
+    
+            const materiels = await Materiel.findAll({
+                where: {
+                    id_entreprise: id_entreprise,
+                    type: material_type
+                }
+            });
+    
+            console.log('Résultat:', materiels);
+    
+            res.status(200).json(materiels);
+        } catch (error) {
+            handleError(res, error);
+        }
+    },
+    
 
       // Créer un nouvel materiel
     createMateriel: async (req, res) => {

@@ -6,8 +6,8 @@ import './Site.css';
 import { IoEye } from 'react-icons/io5';
 import { MdEdit } from 'react-icons/md';
 import { IoMdTrash } from 'react-icons/io';
-import AddNewSiteModal from '../../../Components/admin/AddNewSiteModal.jsx/AddNewSiteModal';
-import ViewSiteDetailsModal from '../../../Components/admin/ViewSiteDetailsModal/ViewSiteDetailsModal';
+import AddNewSiteModal from './AddNewSiteModal.jsx/AddNewSiteModal';
+import ViewSiteDetailsModal from './ViewSiteDetailsModal/ViewSiteDetailsModal';
 
 
 const Site = () => {
@@ -18,6 +18,8 @@ const Site = () => {
 
     // Modals
     const [showModal, setShowModal] = useState(false);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
 
 
     useEffect(() => {
@@ -26,7 +28,16 @@ const Site = () => {
             fetchSites();
         }
     }, [user]);
-    
+
+    const handleView = (site) => {
+        setSelectedSite(site);
+        setIsViewModalOpen(true);
+    };
+
+    const handleAddSite = () => {
+        setIsAddModalOpen(true);
+    };
+
     const fetchSites = async () => {
         try {
             const data = await getAllSites(user.id_entreprise);
@@ -36,10 +47,6 @@ const Site = () => {
         }
     };
 
-    const handleView = (site) => {
-        setSelectedSite(site);
-        setShowViewSiteDetailsModal(true);
-    }
 
     const handleEdit = () => {
         console.log("Modifier le site");
@@ -71,7 +78,10 @@ const Site = () => {
                     <button className="bg-gray-200 hover:bg-green-900 hover:text-white text-black px-5 py-2 rounded flex justify-center items-center">
                         Filtrer
                     </button>
-                    <button className="bg-green-900 hover:bg-green-950 px-5 py-2 flex justify-center items-center gap-1 text-white rounded shadow">
+                    <button
+                        onClick={handleAddSite}
+                        className="bg-green-900 hover:bg-green-950 px-5 py-2 flex justify-center items-center gap-1 text-white rounded shadow"
+                    >
                         <span>+</span> Ajouter
                     </button>
                 </div>
@@ -101,8 +111,8 @@ const Site = () => {
                                     <td className="px-4 py-3">{site.type_contrat_ContratSAV.designation}</td>
                                     <td className="px-4 py-3">{site.installateur_Utilisateur.nom}</td>
                                     <td className="px-4 py-3 text-center flex flex-row gap-2 justify-start items-center">
-                                        <span onClick={()=>handleView(site)} title='Voir détails' className='cursor-pointer hover:scale-110 '><IoEye className='text-korobo hover:text-green-700' /></span>
-                                        <span onClick={()=>handleEdit(site)} title='Modifier' className='cursor-pointer hover:scale-110 '><MdEdit className='text-korobo hover:text-green-700' /></span>
+                                        <span onClick={() => handleView(site)} title='Voir détails' className='cursor-pointer hover:scale-110 '><IoEye className='text-korobo hover:text-green-700' /></span>
+                                        <span onClick={() => handleEdit(site)} title='Modifier' className='cursor-pointer hover:scale-110 '><MdEdit className='text-korobo hover:text-green-700' /></span>
                                         <span onClick={() => handleDelete(site)} title='Supprimer' className='cursor-pointer hover:scale-110 '>
                                             <IoMdTrash className='text-korobo hover:text-green-700' />
                                         </span>
@@ -144,9 +154,27 @@ const Site = () => {
                         </div>
                     </div>
                 )}
-                    
-            </div>
 
+                {isAddModalOpen && (
+                    <AddNewSiteModal
+                        site={null}
+                        onClose={() => setIsAddModalOpen(false)}
+                        onSiteAdded={fetchSites}
+                        id_entreprise={user?.id_entreprise}
+                    />
+                )}
+
+                {isViewModalOpen && selectedSite && (
+                    <ViewSiteDetailsModal
+                        site={selectedSite}
+                        onClose={() => {
+                            setIsViewModalOpen(false);
+                            setSelectedSite(null);
+                        }}
+                    />
+                )}
+
+            </div>
         </div>
     );
 };

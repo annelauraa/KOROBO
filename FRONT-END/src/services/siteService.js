@@ -22,3 +22,14 @@ export const deleteSiteById = async (id_site) => {
         throw error.response?.data?.error || 'Erreur lors de la connexion';
     }
 };
+
+export const createSite = async (siteData) => {
+    try {
+        const response = await api.post('/sites', siteData);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error.response?.data?.error || 'Erreur lors de la création du site';
+    }
+};
+

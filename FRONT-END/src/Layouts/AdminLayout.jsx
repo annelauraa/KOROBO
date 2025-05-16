@@ -6,18 +6,24 @@ import Footer from '../Components/admin/Footer/Footer';
 
 const AdminLayout = () => {
     return (
-    <div className="flex">
-        <div className="w-1/15">
-            <Sidebar />
-        </div>
-        <div className='w-14/15'>
-            <Header/>
-            <div className='p-4'>
-            <Outlet/>
+        <div className="flex h-screen">
+            {/* Sidebar fixe */}
+            <div className="w-1/15 bg-gray-100 h-full">
+                <Sidebar />
             </div>
-            <Footer/>
+
+            {/* Partie droite : Header, Outlet (scrollable), Footer */}
+            <div className="flex flex-col w-14/15 h-full">
+                <Header />
+
+                {/* Contenu principal scrollable */}
+                <div className="flex-1 overflow-y-auto p-4">
+                    <Outlet />
+                </div>
+
+                <Footer />
+            </div>
         </div>
-    </div>
     );
 };
 
