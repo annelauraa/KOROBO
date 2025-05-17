@@ -1,6 +1,6 @@
-const Sequelize      = require('sequelize');
-      module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Utilisateurs', {
+const Sequelize = require('sequelize');
+module.exports = function(sequelize, DataTypes) {
+  const Utilisateurs =  sequelize.define('Utilisateurs', {
     id: {
       autoIncrement: true,
       type         : DataTypes.INTEGER,
@@ -56,4 +56,15 @@ const Sequelize      = require('sequelize');
       },
     ]
   });
+
+  // Ajoutez seulement cette partie association
+  Utilisateurs.associate = function(models) {
+    Utilisateurs.belongsTo(models.Entreprises, {
+      foreignKey: 'id_entreprise',
+      as: 'entreprise'
+    });
+  };
+
+  return Utilisateurs;
+
 };

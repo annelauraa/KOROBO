@@ -136,6 +136,7 @@ const MaterielTable = ({ idEntreprise, typeMateriel, moduleName = "Matériel" })
         onSubmit={handleSubmitModal}
         initialData={currentMateriel || {}}
         moduleName={moduleName}
+        typeMateriel={typeMateriel}
       />
     </div>
   );

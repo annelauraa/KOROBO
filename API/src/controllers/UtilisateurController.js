@@ -39,6 +39,7 @@ const utilisateurController = {
     // Récuperer tous les techniciens
     getAllTechnicians: async (req, res) => {
         try {
+
             const { id_entreprise } = req.params;
             const utilisateurs      = await Utilisateur.findAll({
                 attributes: [
