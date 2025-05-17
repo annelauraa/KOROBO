@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-const ModalMateriel = ({ isOpen, onClose, onSubmit, initialData = {}, moduleName }) => {
+const ModalMateriel = ({ isOpen, onClose, onSubmit, initialData = {}, moduleName, typeMateriel }) => {
   const [type, setType] = useState('');
   const [marque, setMarque] = useState('');
   const [constructeur, setConstructeur] = useState('');
 
   useEffect(() => {
     if (isOpen) {
-      const normalizedType = moduleName.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const normalizedType = typeMateriel.toLowerCase().replace(/[^a-z0-9]/g, '');
       setType(normalizedType);
-
+      
       setMarque(initialData.marque || '');
       setConstructeur(initialData.constructeur || '');
     }
-  }, [isOpen, initialData, moduleName]);
+  }, [isOpen, initialData, moduleName, typeMateriel]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

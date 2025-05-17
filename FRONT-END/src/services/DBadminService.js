@@ -17,7 +17,7 @@ export const getAllTechniciens = async (id_entreprise) => {
         return response.data;
     } catch (error) {
         console.error(error);
-        throw error.response?.data?.error || 'Erreur lors de la récupération des utilisateurs';
+        throw error.response?.data?.error || 'Erreur lors de la récupération des techniciens';
     }
 };
 
