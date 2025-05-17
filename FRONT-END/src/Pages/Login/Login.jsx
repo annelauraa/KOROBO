@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { IoIosEye, IoIosEyeOff, IoIosArrowBack } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import './Login.css';
 import { isAuthenticated } from '../../utils/auth';
 import { GoXCircleFill } from "react-icons/go";
@@ -53,13 +53,14 @@ const Login = () => {
           mot_de_passe: formData.password,
         });
 
-        window.location.href = "/dashboard";
-
       } catch (errMsg) {
         setError(errMsg);
         setErrorShakeTrigger(prev => prev + 1);
       } finally {
         setIsLoading(false);
+        if (isAuthenticated()) {
+          navigate("/dashboard", { replace: true });
+        }
       }
 
       // Logic de soumission du formulaire ici (création de compte)
