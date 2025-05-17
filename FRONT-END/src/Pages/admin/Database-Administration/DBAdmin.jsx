@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './DBAdmin.css';
 import TechnicienTable from './Tables/TechnicienTable';
-import TypeContratSavTable from './Tables/TypeContratSavTable';
+// import TypeContratSavTable from './Tables/TypeContratSavTable';
 import MaterielTable from './Tables/MaterielTable';
 
 const DBAdmin = () => {
@@ -20,16 +20,16 @@ const DBAdmin = () => {
   const menuItems = [
     'Techniciens',
     ...Object.keys(materielTypes),
-    'Type de Contrat SAV' // séparé ici
+    // 'Type de Contrat SAV' 
   ];
 
   const renderContent = () => {
     if (selected === 'Techniciens') {
       return <TechnicienTable />;
     }
-    if (selected === 'Type de Contrat SAV') {
-      return <TypeContratSavTable />;
-    }
+    // if (selected === 'Type de Contrat SAV') {
+    //   return <TypeContratSavTable />;
+    // }
 
     const { typeMateriel, moduleName } = materielTypes[selected] || {};
     if (!typeMateriel) return <p>Section non trouvée</p>;

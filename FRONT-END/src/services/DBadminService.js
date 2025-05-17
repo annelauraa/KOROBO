@@ -102,7 +102,7 @@ export const getMaterielById = async (id) => {
 export const createMateriel = async (materielData) => {
 
     console.log(materielData);
-    
+
     try {
         const response = await api.post('/materiels', materielData);
         return response.data;
@@ -131,5 +131,55 @@ export const deleteMateriel = async (id) => {
     } catch (error) {
         console.error(error);
         throw error.response?.data?.error || 'Erreur lors de la suppression du matériel';
+    }
+};
+
+/* Contrat sav */
+//Récuperation
+export const getAllContratType = async (index, id_connected, id_entreprise) => {
+    try {
+        const response = await api.get(`/utilisateurs/search/${index}/${id_connected}/${id_entreprise}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error.response?.data?.error || 'Erreur lors de la récuperation des contrat';
+    }
+};
+
+//Création
+export const createNewContratType = async (contratData) => {
+
+    console.log(contratData);
+
+    try {
+        const response = await api.post('/materiels', contratData);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error.response?.data?.error || 'Erreur lors de la création du matériel';
+    }
+};
+
+
+//Modification
+export const updateContratType = async (id, updatedData) => {
+    try {
+        const response = await api.put(`/materiels/${id}`, updatedData);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error.response?.data?.error || 'Erreur lors de la mise à jour du type de contrat';
+    }
+};
+
+
+//Suppression
+export const deleteContratType = async (id) => {
+    try {
+        const response = await api.delete(`/materiels/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error.response?.data?.error || 'Erreur lors de la suppression du type de contrat';
     }
 };
