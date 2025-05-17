@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 
 const options = {
-    origin: ["http://localhost:5173", "http://192.168.16.100:5173"],
+    origin: ["http://localhost:5173", "https://korobo.onrender.com"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
