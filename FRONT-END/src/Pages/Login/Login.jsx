@@ -53,16 +53,12 @@ const Login = () => {
           mot_de_passe: formData.password,
         });
 
+        window.location.href = '/dashboard';
+        setIsLoading(false);
+
       } catch (errMsg) {
         setError(errMsg);
         setErrorShakeTrigger(prev => prev + 1);
-      } finally {
-        if (isAuthenticated()) {
-          window.location.href = '/dashboard';
-          // return <Navigate to="/dashboard" />
-          // navigate("/dashboard", { replace: true });
-        }
-        setIsLoading(false);
       }
 
       // Logic de soumission du formulaire ici (création de compte)
