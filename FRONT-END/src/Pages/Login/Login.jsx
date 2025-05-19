@@ -59,7 +59,8 @@ const Login = () => {
       } finally {
         setIsLoading(false);
         if (isAuthenticated()) {
-          navigate("/dashboard", { replace: true });
+          return <Navigate to="/dashboard" />
+          // navigate("/dashboard", { replace: true });
         }
       }
 
