@@ -59,7 +59,8 @@ const Login = () => {
       } finally {
         setIsLoading(false);
         if (isAuthenticated()) {
-          return <Navigate to="/dashboard" />
+          window.location.href = '/dashboard';
+          // return <Navigate to="/dashboard" />
           // navigate("/dashboard", { replace: true });
         }
       }
