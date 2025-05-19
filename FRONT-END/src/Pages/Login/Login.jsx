@@ -57,12 +57,12 @@ const Login = () => {
         setError(errMsg);
         setErrorShakeTrigger(prev => prev + 1);
       } finally {
-        setIsLoading(false);
         if (isAuthenticated()) {
           window.location.href = '/dashboard';
           // return <Navigate to="/dashboard" />
           // navigate("/dashboard", { replace: true });
         }
+        setIsLoading(false);
       }
 
       // Logic de soumission du formulaire ici (création de compte)
